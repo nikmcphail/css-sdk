@@ -50,6 +50,8 @@ add_library(css-sdk SHARED
     src/main.cpp
     src/core/core.cpp
     src/core/interfaces/interfaces.cpp
+    src/core/netvars/netvars.cpp
+    src/core/addresses/addresses.cpp
     src/library/utils.cpp
 )
 

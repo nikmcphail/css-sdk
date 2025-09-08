@@ -15,7 +15,7 @@ public:
 
 class i_cvar_query_t : public i_app_system_t {
 public:
-  virtual bool ar_convars_linkable(const convar_t* child, const convar_t* parent) = 0;
+  virtual bool are_convars_linkable(const convar_t* child, const convar_t* parent) = 0;
 };
 
 class i_cvar_t : public i_app_system_t {
@@ -81,7 +81,7 @@ inline i_cvar_t::iterator_t::iterator_t(i_cvar_t* cvar) {
 }
 
 inline i_cvar_t::iterator_t::~iterator_t(void) {
-  // delete m_pIter;
+  // delete iter;
 }
 
 inline void i_cvar_t::iterator_t::set_first(void) { iter->set_first(); }

@@ -30,8 +30,19 @@ bool core::initialize() {
   if (!g_interfaces.collect_interfaces())
     return false;
 
-  g_interfaces.cvar->console_color_printf(color_t{255, 255, 255, 255}, "CSS-SDK |");
-  g_interfaces.cvar->console_color_printf(color_t{0, 255, 0, 255}, " Loaded\n");
+  g_interfaces.cvar->console_color_printf(color_t{255, 255, 255, 255}, "SDK | ");
+  g_interfaces.cvar->console_color_printf(color_t{250, 202, 222, 255},
+                                          "Interfaces initialized\n");
+
+  if (!g_addresses.collect_addresses())
+    return false;
+
+  g_interfaces.cvar->console_color_printf(color_t{255, 255, 255, 255}, "SDK | ");
+  g_interfaces.cvar->console_color_printf(color_t{250, 202, 222, 255},
+                                          "Addresses initialized\n");
+
+  g_interfaces.cvar->console_color_printf(color_t{255, 255, 255, 255}, "SDK | ");
+  g_interfaces.cvar->console_color_printf(color_t{0, 255, 0, 255}, "Loaded\n");
 
   g_globals.attached = true;
   return true;
@@ -40,7 +51,7 @@ bool core::initialize() {
 bool core::should_unload() { return (GetAsyncKeyState(VK_DELETE) & 1); }
 
 void core::unload() {
-  g_interfaces.cvar->console_color_printf(color_t{255, 255, 255, 255}, "CSS-SDK |");
-  g_interfaces.cvar->console_color_printf(color_t{255, 0, 0, 255}, " Unloaded\n");
+  g_interfaces.cvar->console_color_printf(color_t{255, 255, 255, 255}, "SDK | ");
+  g_interfaces.cvar->console_color_printf(color_t{255, 0, 0, 255}, "Unloaded\n");
   g_globals.unloading = true;
 }

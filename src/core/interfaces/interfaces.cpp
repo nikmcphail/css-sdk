@@ -31,7 +31,11 @@ template <typename t> t* get_interface(const char* module_name, const char* part
 bool interfaces_t::collect_interfaces() {
   this->cvar = get_interface<i_cvar_t>("vstdlib.dll", "VEngineCvar");
   if (!this->cvar) {
-    MessageBox(nullptr, "ERROR", "ERROR", MB_OK);
+    return false;
+  }
+
+  this->base_client = get_interface<i_base_client_dll_t>("client.dll", "VClient");
+  if (!this->base_client) {
     return false;
   }
 
