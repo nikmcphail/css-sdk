@@ -29,6 +29,9 @@ bool core::initialize() {
   return true;
 }
 
-bool core::should_unload() { return (GetAsyncKeyState(VK_DELETE) & 1); }
+bool core::should_unload() {
+  g_globals.unloading = true;
+  return (GetAsyncKeyState(VK_DELETE) & 1);
+}
 
 void core::unload() {}
