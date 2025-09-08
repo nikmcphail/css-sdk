@@ -49,6 +49,8 @@ CPMAddPackage("gh:freetype/freetype#d41a855aab6d8ce131c465ce01f0f536e0fb2269")
 add_library(css-sdk SHARED
     src/main.cpp
     src/core/core.cpp
+    src/core/interfaces/interfaces.cpp
+    src/library/utils.cpp
 )
 
 set_target_properties(css-sdk PROPERTIES
