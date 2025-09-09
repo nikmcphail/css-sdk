@@ -1,7 +1,7 @@
 ## **Counter-Strike: Source SDK [x64]**
 
 ## Description:
-### This project is meant to serve as a "do-anything" SDK for Counter-Strike: Source.
+### This project is meant to serve as a "do-anything" SDK for Counter-Strike: Source. Currently this is only client-side, but in the future I may add another build version to include server features.
 
 ## Features:
 ### - 
