@@ -3,9 +3,6 @@
 ## Description:
 ### This project is meant to serve as a "do-anything" SDK for Counter-Strike: Source. Currently this is only client-side, but in the future I may add another build version to include server features.
 
-## Features:
-### - 
-
 ## **Create Build Folder**
 
 ```
@@ -20,4 +17,5 @@ ninja -C build
 ```
 
 ## Credits/References:
+### - [Source SDK 2013](https://github.com/ValveSoftware/source-sdk-2013) (Valve's Official SDK)
 ### - [Amalgam](https://github.com/rei-2/Amalgam) (Updated Structures/NetVars)
