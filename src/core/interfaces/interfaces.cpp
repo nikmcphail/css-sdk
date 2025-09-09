@@ -39,5 +39,10 @@ bool interfaces_t::collect_interfaces() {
     return false;
   }
 
+  this->game_console = get_interface<i_game_console_t>("GameUI.dll", "GameConsole");
+  if (!this->game_console) {
+    return false;
+  }
+
   return true;
 }
