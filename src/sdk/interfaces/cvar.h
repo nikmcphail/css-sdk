@@ -2,7 +2,7 @@
 
 #include "app_system.h"
 #include "../main/convar.h"
-#include "../misc/color.h"
+#include "../main/color.h"
 
 typedef int cvar_dll_identifier_t;
 

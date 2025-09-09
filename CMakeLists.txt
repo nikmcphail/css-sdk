@@ -53,6 +53,7 @@ add_library(css-sdk SHARED
     src/core/netvars/netvars.cpp
     src/core/addresses/addresses.cpp
     src/library/utils.cpp
+    src/library/math.cpp
 )
 
 set_target_properties(css-sdk PROPERTIES

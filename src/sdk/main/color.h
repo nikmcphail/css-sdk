@@ -37,7 +37,6 @@ struct color_t {
       b = byte((value >> 8) & 0xFF);
       a = byte(value & 0xFF);
     }
-    // else → keep default (white)
   }
 
   inline void set_rgb(float fl_r = 255.f, float fl_g = 255.f, float fl_b = 255.f,

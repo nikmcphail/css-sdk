@@ -5,7 +5,7 @@
 
 #include "src/sdk/interfaces/cvar.h"
 #include "src/sdk/interfaces/game_console.h"
-#include "src/sdk/misc/color.h"
+#include "src/sdk/main/color.h"
 
 bool core::check_insecure() {
   int     argc;

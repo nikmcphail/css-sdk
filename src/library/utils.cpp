@@ -133,3 +133,7 @@ std::string utils::get_module_offset(uintptr_t address) {
 
   return fmt::format("{:#x}+{:#x}", base, address - base);
 }
+
+ULONG64 utils::get_export(const char* module, const char* exp) {
+  return (ULONG64)GetProcAddress(GetModuleHandleA(module), exp);
+}

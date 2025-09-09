@@ -1,5 +1,6 @@
 #pragma once
 
+#include <basetsd.h>
 #include <cstdint>
 #include <vector>
 #include <string>
@@ -20,4 +21,6 @@ namespace utils {
   }
 
   address_t find_pattern_in_memory(const char* module_name, const char* pattern);
+
+  ULONG64 get_export(const char* module, const char* exp);
 } // namespace utils
