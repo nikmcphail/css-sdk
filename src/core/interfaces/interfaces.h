@@ -3,12 +3,16 @@
 class i_cvar_t;
 class i_base_client_dll_t;
 class i_game_console_t;
+class i_client_entity_list_t;
+class iv_engine_trace_t;
 
 class interfaces_t {
 public:
-  i_cvar_t*            cvar{nullptr};
-  i_base_client_dll_t* base_client{nullptr};
-  i_game_console_t*    game_console{nullptr};
+  i_cvar_t*               cvar{nullptr};
+  i_base_client_dll_t*    base_client{nullptr};
+  i_game_console_t*       game_console{nullptr};
+  i_client_entity_list_t* entity_list{nullptr};
+  iv_engine_trace_t*      engine_trace{nullptr};
 
   bool collect_interfaces();
 };

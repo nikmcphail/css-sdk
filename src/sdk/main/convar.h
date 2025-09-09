@@ -78,7 +78,7 @@ public:
   virtual bool        is_registered(void) const                                          = 0;
   virtual void*       get_dll_identifier() const                                         = 0;
   virtual void create_base(const char* name, const char* help_string = 0, int flags = 0) = 0;
-  virtual void init()                                                                    = 0;
+  virtual void initialize()                                                              = 0;
 
   con_command_base_t* next;
   bool                registered;
@@ -187,7 +187,7 @@ private:
   virtual void internal_set_int_value(int value)                             = 0;
   virtual bool clamp_value(float& value)                                     = 0;
   virtual void change_string_value(const char* temp_value, float old_value)  = 0;
-  virtual void init()                                                        = 0;
+  virtual void initialize()                                                  = 0;
 
   int get_flags() { return parent->flags; }
 

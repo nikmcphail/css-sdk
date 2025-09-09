@@ -20,8 +20,8 @@ struct matrix_3x4_t {
     values[2][3] = m23;
   }
 
-  void init(const vector3_t& x_axis, const vector3_t& y_axis, const vector3_t& z_axis,
-            const vector3_t& origin) {
+  void initialize(const vector3_t& x_axis, const vector3_t& y_axis, const vector3_t& z_axis,
+                  const vector3_t& origin) {
     values[0][0] = x_axis.x;
     values[0][1] = y_axis.x;
     values[0][2] = z_axis.x;
@@ -38,7 +38,7 @@ struct matrix_3x4_t {
 
   matrix_3x4_t(const vector3_t& x_axis, const vector3_t& y_axis, const vector3_t& z_axis,
                const vector3_t& origin) {
-    init(x_axis, y_axis, z_axis, origin);
+    initialize(x_axis, y_axis, z_axis, origin);
   }
 
   float*       operator[](int i) { return values[i]; }

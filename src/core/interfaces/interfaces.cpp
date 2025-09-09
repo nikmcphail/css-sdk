@@ -44,5 +44,15 @@ bool interfaces_t::collect_interfaces() {
     return false;
   }
 
+  this->entity_list = get_interface<i_client_entity_list_t>("client.dll", "VClientEntityList");
+  if (!this->entity_list) {
+    return false;
+  }
+
+  this->engine_trace = get_interface<iv_engine_trace_t>("engine.dll", "EngineTraceClient");
+  if (!this->engine_trace) {
+    return false;
+  }
+
   return true;
 }
