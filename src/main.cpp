@@ -14,9 +14,9 @@ unsigned long WINAPI initialize(void* argument) {
   if (core::initialize()) {
     while (!core::should_unload())
       std::this_thread::sleep_for(std::chrono::seconds(1));
+    core::unload();
   }
 
-  core::unload();
   std::this_thread::sleep_for(std::chrono::seconds(1));
 
   FreeLibraryAndExitThread(static_cast<HMODULE>(argument), EXIT_SUCCESS);
