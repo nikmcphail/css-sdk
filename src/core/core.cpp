@@ -3,6 +3,7 @@
 #include <Windows.h>
 #include <winuser.h>
 
+#include "src/library/utils.h"
 #include "src/sdk/interfaces/cvar.h"
 #include "src/sdk/interfaces/game_console.h"
 #include "src/sdk/main/color.h"
@@ -50,7 +51,6 @@ bool core::initialize() {
   sdk_message(COLOR_WHITE, "Addresses initialized");
 
   sdk_message(COLOR_GREEN_BALANCED, "Loaded");
-
   g_globals.attached = true;
   return true;
 }
@@ -108,4 +108,95 @@ void core::sdk_test(bool test_case, const char* success_text, const char* fail_t
     g_interfaces.cvar->console_color_printf(COLOR_RED_BALANCED, "[Test Failed] %s\n",
                                             fail_text);
   }
+}
+
+void core::valve_con_message(const char* format, ...) {
+  char buffer[1024];
+
+  va_list args;
+  va_start(args, format);
+  vsnprintf(buffer, sizeof(buffer) - 2, format, args);
+  va_end(args);
+
+  size_t len      = strlen(buffer);
+  buffer[len]     = '\n';
+  buffer[len + 1] = '\0';
+
+  static ULONG64 con_msg_address = utils::get_export("tier0.dll", "?ConMsg@@YAXPEBDZZ");
+  static auto    func            = (void (*)(const char*))con_msg_address;
+
+  func(buffer);
+}
+
+void core::valve_con_color_message(const color_t& color, char const* format, ...) {
+  char buffer[1024];
+
+  va_list args;
+  va_start(args, format);
+  vsnprintf(buffer, sizeof(buffer) - 2, format, args);
+  va_end(args);
+
+  size_t len      = strlen(buffer);
+  buffer[len]     = '\n';
+  buffer[len + 1] = '\0';
+
+  static ULONG64 con_color_msg_address =
+      utils::get_export("tier0.dll", "?ConColorMsg@@YAXAEBVColor@@PEBDZZ");
+  static auto func = (void (*)(const color_t&, const char*))con_color_msg_address;
+
+  func(color, buffer);
+}
+
+void core::valve_con_warning(const char* format, ...) {
+  char buffer[1024];
+
+  va_list args;
+  va_start(args, format);
+  vsnprintf(buffer, sizeof(buffer) - 2, format, args);
+  va_end(args);
+
+  size_t len      = strlen(buffer);
+  buffer[len]     = '\n';
+  buffer[len + 1] = '\0';
+
+  static ULONG64 con_warning_address = utils::get_export("tier0.dll", "?ConWarning@@YAXPEBDZZ");
+  static auto    func                = (void (*)(const char*))con_warning_address;
+
+  func(buffer);
+}
+
+void core::valve_dev_message(const char* format, ...) {
+  char buffer[1024];
+
+  va_list args;
+  va_start(args, format);
+  vsnprintf(buffer, sizeof(buffer) - 2, format, args);
+  va_end(args);
+
+  size_t len      = strlen(buffer);
+  buffer[len]     = '\n';
+  buffer[len + 1] = '\0';
+
+  static ULONG64 dev_msg_address = utils::get_export("tier0.dll", "?DevMsg@@YAXPEBDZZ");
+  static auto    func            = (void (*)(const char*))dev_msg_address;
+
+  func(buffer);
+}
+
+void core::valve_dev_warning(const char* format, ...) {
+  char buffer[1024];
+
+  va_list args;
+  va_start(args, format);
+  vsnprintf(buffer, sizeof(buffer) - 2, format, args);
+  va_end(args);
+
+  size_t len      = strlen(buffer);
+  buffer[len]     = '\n';
+  buffer[len + 1] = '\0';
+
+  static ULONG64 dev_warning_address = utils::get_export("tier0.dll", "?DevWarning@@YAXPEBDZZ");
+  static auto    func                = (void (*)(const char*))dev_warning_address;
+
+  func(buffer);
 }

@@ -22,4 +22,11 @@ namespace core {
   void sdk_warning(const char* format, ...);
   void sdk_test(bool test_case = false, const char* success_text = "",
                 const char* fail_text = "");
+
+  void valve_con_message(const char* format, ...);
+  void valve_con_color_message(const color_t& color, char const* format, ...);
+  void valve_con_warning(const char* format, ...);
+
+  void valve_dev_message(const char* format, ...);
+  void valve_dev_warning(const char* format, ...);
 } // namespace core

@@ -15,4 +15,5 @@ namespace math {
   float           random_float(float min_val, float max_val);
   void            random_seed(int seed);
   int             random_int(int min_val, int max_val);
+  double          plat_float_time();
 }; // namespace math

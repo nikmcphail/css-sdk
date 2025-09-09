@@ -1,4 +1,5 @@
 #include "math.h"
+#include "src/library/utils.h"
 #include "utils.h"
 
 float math::random_float(float min_val, float max_val) {
@@ -17,4 +18,10 @@ int math::random_int(int min_val, int max_val) {
   static ULONG64 random_int_address = utils::get_export("vstdlib.dll", "RandomInt");
   static auto    func               = (int (*)(int, int))random_int_address;
   return func(min_val, max_val);
+}
+
+double math::plat_float_time() {
+  static ULONG64 plat_float_time_address = utils::get_export("tier0.dll", "Plat_FloatTime");
+  static auto    func                    = (double (*)())plat_float_time_address;
+  return func();
 }
