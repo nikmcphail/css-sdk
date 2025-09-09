@@ -19,7 +19,7 @@ endif ()
 
 get_filename_component(CPM_DOWNLOAD_LOCATION ${CPM_DOWNLOAD_LOCATION} ABSOLUTE)
 
-if (NOT EXISTS ${CPM_DL_LOCATION})
+if (NOT EXISTS ${CPM_DOWNLOAD_LOCATION})
     message(STATUS "Downloading CPM.cmake to: ${CPM_DOWNLOAD_LOCATION}")
 
     file(DOWNLOAD

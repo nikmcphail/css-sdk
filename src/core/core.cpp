@@ -40,14 +40,14 @@ bool core::initialize() {
   if (!g_interfaces.collect_interfaces())
     return false;
 
-  g_interfaces.game_console->activate();
   g_interfaces.game_console->clear();
-  sdk_message(COLOR_WHITE, "Build Mode: %s", _CONFIGURATION);
-  sdk_message(COLOR_WHITE, "Interfaces Initialized");
+  sdk_message(COLOR_WHITE, "Build mode: %s", _CONFIGURATION);
+  sdk_message(COLOR_ORANGE_LIGHT, "Press delete to unload");
+  sdk_message(COLOR_WHITE, "Interfaces initialized");
 
   if (!g_addresses.collect_addresses())
     return false;
-  sdk_message(COLOR_WHITE, "Addresses Initialized");
+  sdk_message(COLOR_WHITE, "Addresses initialized");
 
   sdk_message(COLOR_GREEN_BALANCED, "Loaded");
 
@@ -59,7 +59,6 @@ bool core::should_unload() { return (GetAsyncKeyState(VK_DELETE) & 1); }
 
 void core::unload() {
   g_globals.unloading = true;
-  g_interfaces.game_console->activate();
   g_interfaces.game_console->clear();
   sdk_message(COLOR_RED_BALANCED, "Unloaded");
 }

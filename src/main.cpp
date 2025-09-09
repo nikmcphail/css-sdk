@@ -13,8 +13,9 @@ unsigned long WINAPI initialize(void* argument) {
 #endif
 
   if (core::initialize()) {
-    while (!core::should_unload())
+    while (!core::should_unload()) {
       std::this_thread::sleep_for(std::chrono::seconds(1));
+    }
     core::unload();
   }
 
