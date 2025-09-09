@@ -5,6 +5,7 @@
 struct addresses_t {
   struct {
     struct {
+      // uintptr_t ;
     } functions;
 
     struct {

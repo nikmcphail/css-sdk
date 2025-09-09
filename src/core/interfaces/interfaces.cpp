@@ -54,5 +54,15 @@ bool interfaces_t::collect_interfaces() {
     return false;
   }
 
+  this->engine_client = get_interface<iv_engine_client_t>("engine.dll", "VEngineClient");
+  if (!this->engine_client) {
+    return false;
+  }
+
+  this->input_system = get_interface<i_input_system_t>("inputsystem.dll", "InputSystemVersion");
+  if (!this->input_system) {
+    return false;
+  }
+
   return true;
 }

@@ -5,6 +5,8 @@ class i_base_client_dll_t;
 class i_game_console_t;
 class i_client_entity_list_t;
 class iv_engine_trace_t;
+class iv_engine_client_t;
+class i_input_system_t;
 
 class interfaces_t {
 public:
@@ -13,6 +15,8 @@ public:
   i_game_console_t*       game_console{nullptr};
   i_client_entity_list_t* entity_list{nullptr};
   iv_engine_trace_t*      engine_trace{nullptr};
+  iv_engine_client_t*     engine_client{nullptr};
+  i_input_system_t*       input_system{nullptr};
 
   bool collect_interfaces();
 };
