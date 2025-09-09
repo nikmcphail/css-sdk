@@ -17,5 +17,9 @@ namespace core {
   bool should_unload();
   void unload();
 
-  void sdk_message(const color_t& color, const char* message, ...);
+  void sdk_message(const color_t& color, const char* format, ...);
+  void sdk_error(const char* format, ...);
+  void sdk_warning(const char* format, ...);
+  void sdk_test(bool test_case = false, const char* success_text = "",
+                const char* fail_text = "");
 } // namespace core

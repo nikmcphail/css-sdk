@@ -5,6 +5,7 @@
 
 #include "src/sdk/interfaces/cvar.h"
 #include "src/sdk/interfaces/game_console.h"
+#include "src/sdk/misc/color.h"
 
 bool core::check_insecure() {
   int     argc;
@@ -41,13 +42,14 @@ bool core::initialize() {
 
   g_interfaces.game_console->activate();
   g_interfaces.game_console->clear();
-  sdk_message(color_t{250, 202, 222, 255}, "Interfaces initialized");
+  sdk_message(COLOR_WHITE, "Build Mode: %s", _CONFIGURATION);
+  sdk_message(COLOR_WHITE, "Interfaces Initialized");
 
   if (!g_addresses.collect_addresses())
     return false;
-  sdk_message(color_t{250, 202, 222, 255}, "Addresses initialized");
+  sdk_message(COLOR_WHITE, "Addresses Initialized");
 
-  sdk_message(color_t{0, 255, 0, 255}, "Loaded");
+  sdk_message(COLOR_GREEN_BALANCED, "Loaded");
 
   g_globals.attached = true;
   return true;
@@ -59,11 +61,11 @@ void core::unload() {
   g_globals.unloading = true;
   g_interfaces.game_console->activate();
   g_interfaces.game_console->clear();
-  sdk_message(color_t{255, 0, 0, 255}, "Unloaded");
+  sdk_message(COLOR_RED_BALANCED, "Unloaded");
 }
 
 void core::sdk_message(const color_t& color, const char* format, ...) {
-  g_interfaces.cvar->console_color_printf(color_t{255, 255, 255, 255}, "SDK | ");
+  g_interfaces.cvar->console_color_printf(COLOR_BLUE_LIGHT, "[SDK] ");
 
   char    buffer[1024];
   va_list args;
@@ -72,4 +74,39 @@ void core::sdk_message(const color_t& color, const char* format, ...) {
   va_end(args);
   g_interfaces.cvar->console_color_printf(color, buffer);
   g_interfaces.cvar->console_printf("\n");
+}
+
+void core::sdk_error(const char* format, ...) {
+  g_interfaces.cvar->console_color_printf(COLOR_RED_BALANCED, "[Error] ");
+
+  char    buffer[1024];
+  va_list args;
+  va_start(args, format);
+  vsnprintf(buffer, sizeof(buffer), format, args);
+  va_end(args);
+  g_interfaces.cvar->console_color_printf(COLOR_RED_BALANCED, buffer);
+  g_interfaces.cvar->console_printf("\n");
+}
+
+void core::sdk_warning(const char* format, ...) {
+  g_interfaces.cvar->console_color_printf(COLOR_YELLOW_BALANCED, "[Warning] ");
+
+  char    buffer[1024];
+  va_list args;
+  va_start(args, format);
+  vsnprintf(buffer, sizeof(buffer), format, args);
+  va_end(args);
+  g_interfaces.cvar->console_color_printf(COLOR_YELLOW_BALANCED, buffer);
+  g_interfaces.cvar->console_printf("\n");
+}
+
+// kind of basic, might improve later if i need more than simple boolean statements
+void core::sdk_test(bool test_case, const char* success_text, const char* fail_text) {
+  if (test_case) {
+    g_interfaces.cvar->console_color_printf(COLOR_GREEN_BALANCED, "[Test Passed] %s\n",
+                                            success_text);
+  } else {
+    g_interfaces.cvar->console_color_printf(COLOR_RED_BALANCED, "[Test Failed] %s\n",
+                                            fail_text);
+  }
 }

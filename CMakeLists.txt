@@ -94,6 +94,8 @@ if (CMAKE_BUILD_TYPE STREQUAL "Release")
         WINVER=0x0A00
         _WIN32_WINNT=0x0A00
         JSON_NOEXCEPTION
+        INSECURE_CHECK
+        _CONFIGURATION="Release"
     )
 
     target_compile_options(css-sdk PRIVATE
@@ -144,6 +146,7 @@ elseif (CMAKE_BUILD_TYPE STREQUAL "Debug")
         NOMINMAX
         DEBUG
         INSECURE_CHECK
+        _CONFIGURATION="Debug"
     )
 
     target_compile_options(css-sdk PRIVATE

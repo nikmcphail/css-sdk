@@ -4,7 +4,8 @@
 #include "core/core.h"
 
 unsigned long WINAPI initialize(void* argument) {
-#ifdef INSECURE_CHECK
+#ifdef INSECURE_CHECK // This is defined by default in both Release and Debug configurations.
+                      // Remove it in CMakeLists if you don't want the check.
   if (!core::check_insecure()) {
     FreeLibraryAndExitThread(static_cast<HMODULE>(argument), EXIT_FAILURE);
     return 0;
