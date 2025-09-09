@@ -4,8 +4,12 @@
 #include <string>
 
 #include "fmt/core.h"
+// #include "src/core/core.h"
+// #include "src/sdk/main/color.h"
+// Uncomment the above lines for LIST_INTERFACE_VERSIONS
 
-template <typename t> t* get_interface(const char* module_name, const char* partial) {
+template <typename t>
+t* get_interface(const char* module_name, const char* partial, bool strict = false) {
   HMODULE module = GetModuleHandleA(module_name);
   if (!module)
     return nullptr;
@@ -16,13 +20,32 @@ template <typename t> t* get_interface(const char* module_name, const char* part
 
   using create_interface_fn = void* (*)(const char*, int*);
   auto create_interface     = reinterpret_cast<create_interface_fn>(create_interface_proc);
-
-  for (int i = 0; i < 100; i++) {
-    std::string name = fmt::format("{}{:03}", partial, i);
-
-    void* ret = create_interface(name.c_str(), nullptr);
-    if (ret)
+  if (strict) {
+    void* ret = create_interface(partial, nullptr);
+    if (ret) {
+#ifdef LIST_INTERFACE_VERSIONS
+      if (core::g_interfaces.cvar) {
+        core::sdk_message(COLOR_BLUE_BALANCED, "%s", partial);
+      }
+#endif
       return static_cast<t*>(ret);
+    }
+
+    return nullptr;
+  } else {
+    for (int i = 0; i < 100; i++) {
+      std::string name = fmt::format("{}{:03}", partial, i);
+
+      void* ret = create_interface(name.c_str(), nullptr);
+      if (ret) {
+#ifdef LIST_INTERFACE_VERSIONS
+        if (core::g_interfaces.cvar) {
+          core::sdk_message(COLOR_BLUE_BALANCED, "%s", name.c_str());
+        }
+#endif
+        return static_cast<t*>(ret);
+      }
+    }
   }
 
   return nullptr;
@@ -49,18 +72,25 @@ bool interfaces_t::collect_interfaces() {
     return false;
   }
 
-  this->engine_trace = get_interface<iv_engine_trace_t>("engine.dll", "EngineTraceClient");
+  this->engine_trace = get_interface<i_engine_trace_t>("engine.dll", "EngineTraceClient");
   if (!this->engine_trace) {
     return false;
   }
 
-  this->engine_client = get_interface<iv_engine_client_t>("engine.dll", "VEngineClient");
+  this->engine_client =
+      get_interface<iv_engine_client_t>("engine.dll", "VEngineClient014", true);
   if (!this->engine_client) {
     return false;
   }
 
   this->input_system = get_interface<i_input_system_t>("inputsystem.dll", "InputSystemVersion");
   if (!this->input_system) {
+    return false;
+  }
+
+  this->game_event =
+      get_interface<i_game_event_manager_2_t>("engine.dll", "GAMEEVENTSMANAGER002", true);
+  if (!this->game_event) {
     return false;
   }
 

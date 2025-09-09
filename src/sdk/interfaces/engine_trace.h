@@ -6,7 +6,7 @@
 
 #include "src/library/utils.h"
 
-class iv_engine_trace_t {
+class i_engine_trace_t {
 public:
   void trace_ray(const ray_t& ray, uint64_t mask, i_trace_filter_t* filter, trace_t* trace) {
     typedef void(__fastcall * trace_ray_fn)(void*, const ray_t&, uint64_t, i_trace_filter_t*,

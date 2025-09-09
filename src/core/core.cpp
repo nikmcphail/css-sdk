@@ -41,6 +41,7 @@ bool core::initialize() {
   if (!g_interfaces.collect_interfaces())
     return false;
 
+  // If you enable LIST_INTERFACE_VERSIONS, comment out the clear below.
   g_interfaces.game_console->clear();
   sdk_message(COLOR_WHITE, "Build mode: %s", _CONFIGURATION);
   sdk_message(COLOR_ORANGE_LIGHT, "Press delete to unload");

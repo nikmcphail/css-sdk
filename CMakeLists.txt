@@ -115,39 +115,13 @@ if (CMAKE_BUILD_TYPE STREQUAL "Release")
         /clang:-fno-asynchronous-unwind-tables
         /clang:-g0
     )
-elseif (CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
-    target_compile_definitions(css-sdk PRIVATE
-        NDEBUG
-        NOMINMAX
-        _HAS_EXCEPTIONS=0
-        _ITERATOR_DEBUG_LEVEL=0
-        WINVER=0x0A00
-        _WIN32_WINNT=0x0A00
-        JSON_NOEXCEPTION
-    )
-
-    target_compile_options(css-sdk PRIVATE
-        /O2
-        /fp:precise
-        /Ob2
-        /GR-
-        /GS-
-        /EHsc
-        /guard:cf-
-        /clang:-mfpmath=sse
-        /clang:-march=haswell # Haswell minimum.
-        /clang:-mtune=generic
-        /clang:-fno-ident
-        /clang:-fno-unwind-tables
-        /clang:-fno-asynchronous-unwind-tables
-        /clang:-g
-    )
 elseif (CMAKE_BUILD_TYPE STREQUAL "Debug")
     target_compile_definitions(css-sdk PRIVATE
         NOMINMAX
         DEBUG
         INSECURE_CHECK
         _CONFIGURATION="Debug"
+        # LIST_INTERFACE_VERSIONS
     )
 
     target_compile_options(css-sdk PRIVATE
