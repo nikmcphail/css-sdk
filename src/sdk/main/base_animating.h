@@ -29,4 +29,6 @@ public:
     static int nOffset = netvars::get_net_var("CBaseAnimating", "m_flPoseParameter");
     return *reinterpret_cast<std::array<float, 24>*>(uintptr_t(this) + nOffset);
   }
+
+  void get_bone_position(int bone, vector3_t& origin, qangle_t& angles);
 };

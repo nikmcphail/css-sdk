@@ -54,6 +54,7 @@ add_library(css-sdk SHARED
     src/core/addresses/addresses.cpp
     src/library/utils.cpp
     src/library/math.cpp
+    src/sdk/main/base_animating.cpp
 )
 
 set_target_properties(css-sdk PROPERTIES
