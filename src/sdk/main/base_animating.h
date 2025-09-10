@@ -26,9 +26,13 @@ public:
   NETVAR(fade_max_dist, float, "CBaseAnimating", "m_fadeMaxDist");
   NETVAR(fade_scale, float, "CBaseAnimating", "m_flFadeScale");
   inline std::array<float, 24>& pose_parameter() {
-    static int nOffset = netvars::get_net_var("CBaseAnimating", "m_flPoseParameter");
-    return *reinterpret_cast<std::array<float, 24>*>(uintptr_t(this) + nOffset);
+    static int offset = netvars::get_net_var("CBaseAnimating", "m_flPoseParameter");
+    return *reinterpret_cast<std::array<float, 24>*>(uintptr_t(this) + offset);
   }
 
   void get_bone_position(int bone, vector3_t& origin, qangle_t& angles);
+};
+
+class base_animating_overlay_t : public base_animating_t {
+public:
 };
