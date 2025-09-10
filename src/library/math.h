@@ -16,4 +16,10 @@ namespace math {
   void            random_seed(int seed);
   int             random_int(int min_val, int max_val);
   double          plat_float_time();
+
+  void vector_transform(const vector3_t& in, const matrix_3x4_t& matrix, vector3_t& out);
+  void angle_vector(const qangle_t& angles, vector3_t* forward);
+  void angle_vectors(const qangle_t& from, vector3_t* forward, vector3_t* right = NULL,
+                     vector3_t* up = NULL);
+  void vector_angles(const vector3_t& forward, qangle_t& angles);
 }; // namespace math
