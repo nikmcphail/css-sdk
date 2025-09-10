@@ -8,6 +8,7 @@ class i_engine_trace_t;
 class iv_engine_client_t;
 class i_input_system_t;
 class i_game_event_manager_2_t;
+class i_view_render_beams_t;
 
 class interfaces_t {
 public:
@@ -19,6 +20,7 @@ public:
   iv_engine_client_t*       engine_client{nullptr};
   i_input_system_t*         input_system{nullptr};
   i_game_event_manager_2_t* game_event{nullptr};
+  i_view_render_beams_t*    render_beams{nullptr};
 
   bool collect_interfaces();
 };

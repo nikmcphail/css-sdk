@@ -4,6 +4,7 @@
 #include <string>
 
 #include "fmt/core.h"
+#include "src/library/utils.h"
 // #include "src/core/core.h"
 // #include "src/sdk/main/color.h"
 // Uncomment the above lines for LIST_INTERFACE_VERSIONS
@@ -91,6 +92,14 @@ bool interfaces_t::collect_interfaces() {
   this->game_event =
       get_interface<i_game_event_manager_2_t>("engine.dll", "GAMEEVENTSMANAGER002", true);
   if (!this->game_event) {
+    return false;
+  }
+
+  this->render_beams =
+      *(utils::find_pattern_in_memory("client.dll",
+                                      "48 8B 0D ? ? ? ? 48 8B D3 48 8B 01 FF 50 ? 0F B7 93")
+            .rel32<i_view_render_beams_t**>(0x3));
+  if (!this->render_beams) {
     return false;
   }
 
