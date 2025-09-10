@@ -7,7 +7,7 @@
 
 #include "src/core/netvars/netvars.h"
 
-typedef handle_t<base_entity_t> ehandle;
+typedef c_handle_t<base_entity_t> ehandle;
 
 class base_entity_t : public i_client_entity_t {
 public:

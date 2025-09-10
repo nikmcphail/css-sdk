@@ -100,14 +100,14 @@ inline const base_handle_t& base_handle_t::set(const i_handle_entity_t* ent) {
   return *this;
 }
 
-template <class t> class handle_t : public base_handle_t {
+template <class t> class c_handle_t : public base_handle_t {
 public:
-  handle_t();
-  handle_t(int entry, int serial_number);
-  handle_t(const base_handle_t& handle);
-  handle_t(t* val);
+  c_handle_t();
+  c_handle_t(int entry, int serial_number);
+  c_handle_t(const base_handle_t& handle);
+  c_handle_t(t* val);
 
-  static handle_t<t> from_index(int index);
+  static c_handle_t<t> from_index(int index);
 
   t*   get() const;
   void set(const t* val);
@@ -123,46 +123,47 @@ public:
   t* operator->() const;
 };
 
-template <class t> handle_t<t>::handle_t() {}
+template <class t> c_handle_t<t>::c_handle_t() {}
 
-template <class t> handle_t<t>::handle_t(int entry, int serial_number) {
+template <class t> c_handle_t<t>::c_handle_t(int entry, int serial_number) {
   initialize(entry, serial_number);
 }
 
-template <class t> handle_t<t>::handle_t(const base_handle_t& handle) : base_handle_t(handle) {}
+template <class t>
+c_handle_t<t>::c_handle_t(const base_handle_t& handle) : base_handle_t(handle) {}
 
-template <class t> handle_t<t>::handle_t(t* val) {
+template <class t> c_handle_t<t>::c_handle_t(t* val) {
   term();
   set(val);
 }
 
-template <class t> handle_t<t> handle_t<t>::from_index(int index) {
-  handle_t<t> ret;
+template <class t> c_handle_t<t> c_handle_t<t>::from_index(int index) {
+  c_handle_t<t> ret;
   ret.index = index;
   return ret;
 }
 
-template <class t> t* handle_t<t>::get() const {
+template <class t> t* c_handle_t<t>::get() const {
   return reinterpret_cast<t*>(base_handle_t::get());
 }
 
-template <class t> handle_t<t>::operator t*() { return get(); }
+template <class t> c_handle_t<t>::operator t*() { return get(); }
 
-template <class t> handle_t<t>::operator t*() const { return get(); }
+template <class t> c_handle_t<t>::operator t*() const { return get(); }
 
-template <class t> bool handle_t<t>::operator!() const { return !get(); }
+template <class t> bool c_handle_t<t>::operator!() const { return !get(); }
 
-template <class t> bool handle_t<t>::operator==(t* val) const { return get() == val; }
+template <class t> bool c_handle_t<t>::operator==(t* val) const { return get() == val; }
 
-template <class t> bool handle_t<t>::operator!=(t* val) const { return get() != val; }
+template <class t> bool c_handle_t<t>::operator!=(t* val) const { return get() != val; }
 
-template <class t> void handle_t<t>::set(const t* val) {
+template <class t> void c_handle_t<t>::set(const t* val) {
   base_handle_t::set(reinterpret_cast<const i_handle_entity_t*>(val));
 }
 
-template <class t> const base_handle_t& handle_t<t>::operator=(const t* val) {
+template <class t> const base_handle_t& c_handle_t<t>::operator=(const t* val) {
   set(val);
   return *this;
 }
 
-template <class t> t* handle_t<t>::operator->() const { return get(); }
+template <class t> t* c_handle_t<t>::operator->() const { return get(); }
