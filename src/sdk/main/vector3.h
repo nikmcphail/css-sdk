@@ -32,7 +32,7 @@ public:
 
   bool is_zero(float tolerance = 0.01f) const;
 
-  float dot(const vector3_t& other);
+  float dot(const vector3_t& other) const;
 
   float dist_to(const vector3_t& other);
 
@@ -173,7 +173,7 @@ inline bool vector3_t::is_zero(float tolerance) const {
           z > -tolerance && z < tolerance);
 }
 
-inline float vector3_t::dot(const vector3_t& other) {
+inline float vector3_t::dot(const vector3_t& other) const {
   return (x * other.x + y * other.y + z * other.z);
 }
 
