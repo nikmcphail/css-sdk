@@ -19,5 +19,6 @@ ninja -C build
 ```
 
 ## Credits/References:
+### - [emily](https://github.com/emilyinure), [rumour](https://github.com/rumourA), [batman](https://github.com/bamtna) (Answering All My Questions)
 ### - [Source SDK 2013](https://github.com/ValveSoftware/source-sdk-2013) (Valve's Official SDK)
 ### - [Amalgam](https://github.com/rei-2/Amalgam) (Updated Structures/NetVars)
