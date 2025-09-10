@@ -11,6 +11,8 @@
 #include "src/sdk/main/ray.h"
 #include "src/sdk/main/trace.h"
 #include "src/sdk/main/trace_filter.h"
+#include "src/sdk/main/cs_player.h"
+#include "src/sdk/interfaces/engine_client.h"
 
 bool core::check_insecure() {
   int     argc;
@@ -216,4 +218,12 @@ void core::trace_hull(const vector3_t& start, const vector3_t& end, const vector
                       const vector3_t& maxs, int mask, trace_filter_t* filter, trace_t* trace) {
   ray_t ray(start, end, mins, maxs);
   g_interfaces.engine_trace->trace_ray(ray, mask, filter, trace);
+}
+
+cs_player_t* core::get_local_player() {
+  if (i_client_entity_t* local = g_interfaces.entity_list->get_client_entity(
+          g_interfaces.engine_client->get_local_player_index()))
+    return local->as<cs_player_t>();
+
+  return nullptr;
 }

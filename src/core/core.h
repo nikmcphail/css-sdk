@@ -8,6 +8,7 @@ struct color_t;
 class vector3_t;
 class trace_filter_t;
 class trace_t;
+class cs_player_t;
 
 namespace core {
 
@@ -39,4 +40,7 @@ namespace core {
              trace_filter_t* filter, trace_t* trace);
   void trace_hull(const vector3_t& start, const vector3_t& end, const vector3_t& mins,
                   const vector3_t& maxs, int mask, trace_filter_t* filter, trace_t* trace);
+
+  // Entity functions
+  cs_player_t* get_local_player();
 } // namespace core
