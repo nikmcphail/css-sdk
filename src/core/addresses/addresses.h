@@ -5,7 +5,7 @@
 struct addresses_t {
   struct {
     struct {
-      // uintptr_t ;
+      uintptr_t get_bone_position;
     } functions;
 
     struct {
