@@ -7,6 +7,10 @@
 #include "src/sdk/interfaces/cvar.h"
 #include "src/sdk/interfaces/game_console.h"
 #include "src/sdk/main/color.h"
+#include "src/sdk/interfaces/engine_trace.h"
+#include "src/sdk/main/ray.h"
+#include "src/sdk/main/trace.h"
+#include "src/sdk/main/trace_filter.h"
 
 bool core::check_insecure() {
   int     argc;
@@ -200,4 +204,16 @@ void core::valve_dev_warning(const char* format, ...) {
   static auto    func                = (void (*)(const char*))dev_warning_address;
 
   func(buffer);
+}
+
+void core::trace(const vector3_t& start, const vector3_t& end, unsigned int mask,
+                 trace_filter_t* filter, trace_t* trace) {
+  ray_t ray(start, end);
+  g_interfaces.engine_trace->trace_ray(ray, mask, filter, trace);
+}
+
+void core::trace_hull(const vector3_t& start, const vector3_t& end, const vector3_t& mins,
+                      const vector3_t& maxs, int mask, trace_filter_t* filter, trace_t* trace) {
+  ray_t ray(start, end, mins, maxs);
+  g_interfaces.engine_trace->trace_ray(ray, mask, filter, trace);
 }
