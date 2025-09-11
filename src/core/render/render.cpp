@@ -7,6 +7,7 @@
 
 #include "imgui_impl_dx9.h"
 #include "imgui_impl_win32.h"
+#include "implot.h"
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam,
                                                              LPARAM lParam);
@@ -150,6 +151,7 @@ void render_t::unload_input() {
 
 bool render_t::initialize() {
   ImGui::CreateContext();
+  ImPlot::CreateContext();
   auto& io = ImGui::GetIO();
 
   if (!ImGui_ImplWin32_Init(core::g_window)) {
@@ -172,6 +174,7 @@ void render_t::unload() {
   ImGui_ImplDX9_Shutdown();
   ImGui_ImplWin32_Shutdown();
   ImGui::DestroyContext();
+  ImPlot::DestroyContext();
 }
 
 DWORD g_prev_srgb{};

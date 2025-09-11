@@ -43,8 +43,9 @@ CPMAddPackage(
     OPTIONS "SAFETYHOOK_FETCH_ZYDIS ON"
 )
 
-CPMAddPackage("gh:ocornut/imgui@1.92.2b")
+CPMAddPackage("gh:ocornut/imgui@1.91.9-docking")
 CPMAddPackage("gh:freetype/freetype#d41a855aab6d8ce131c465ce01f0f536e0fb2269")
+CPMAddPackage("gh:epezent/implot@0.16")
 
 add_library(css-sdk SHARED
     src/main.cpp
@@ -80,10 +81,23 @@ if (imgui_ADDED)
 
     target_include_directories(css-sdk PUBLIC
         $<BUILD_INTERFACE:${imgui_SOURCE_DIR}>
-        $<BUILD_INTERFACE:${imgui_SOURCE_DIR}/backends>)
+        $<BUILD_INTERFACE:${imgui_SOURCE_DIR}/backends>
+        )
 
     target_compile_definitions(css-sdk PUBLIC
         IMGUI_IMPL_WIN32_DISABLE_GAMEPAD
+    )
+endif ()
+
+if (implot_ADDED)
+    target_sources(css-sdk PRIVATE
+        ${implot_SOURCE_DIR}/implot.cpp
+        ${implot_SOURCE_DIR}/implot_items.cpp
+        ${implot_SOURCE_DIR}/implot_demo.cpp
+    )
+
+    target_include_directories(css-sdk PUBLIC
+        $<BUILD_INTERFACE:${implot_SOURCE_DIR}>
     )
 endif ()
 
