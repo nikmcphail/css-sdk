@@ -3,7 +3,7 @@
 [![Build Status](https://github.com/nikmcphail/css-sdk/actions/workflows/cmake-single-platform.yml/badge.svg)](https://github.com/nikmcphail/css-sdk/actions/workflows/cmake-single-platform.yml)
 
 ## Description:
-### This project is meant to serve as a "do-anything" SDK for Counter-Strike: Source. Currently this is only client-side, but in the future I may add another build version to include server features.
+### This project is meant to serve as a "do-anything" SDK for Counter-Strike: Source. Currently this is only client-side, but in the future I may add another branch to include server features.
 
 ## **Create Build Folder**
 
