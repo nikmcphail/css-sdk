@@ -1,8 +1,12 @@
 #pragma once
 
+#include <Windows.h>
+
 #include "globals/globals.h"
 #include "interfaces/interfaces.h"
 #include "addresses/addresses.h"
+#include "render/render.h"
+#include "hooks/hooks.h"
 
 struct color_t;
 class vector3_t;
@@ -15,11 +19,18 @@ namespace core {
   inline globals_t    g_globals;
   inline interfaces_t g_interfaces;
   inline addresses_t  g_addresses;
+  inline render_t     g_render;
+  inline hooks_t      g_hooks;
+
+  inline HWND g_window;
 
   bool check_insecure();
   bool initialize();
   bool should_unload();
   void unload();
+
+  void get_window_handle();
+  void on_present();
 
   // SDK message functions
   void sdk_message(const color_t& color, const char* format, ...);

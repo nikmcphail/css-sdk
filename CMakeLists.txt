@@ -52,6 +52,9 @@ add_library(css-sdk SHARED
     src/core/interfaces/interfaces.cpp
     src/core/netvars/netvars.cpp
     src/core/addresses/addresses.cpp
+    src/core/hooks/hooks.cpp
+    src/core/render/render.cpp
+    src/core/menu/menu.cpp
     src/library/utils.cpp
     src/library/math.cpp
     src/sdk/main/base_animating.cpp
@@ -98,6 +101,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Release")
         JSON_NOEXCEPTION
         INSECURE_CHECK
         _CONFIGURATION="Release"
+        SDK_FONTS
     )
 
     target_compile_options(css-sdk PRIVATE
@@ -123,6 +127,7 @@ elseif (CMAKE_BUILD_TYPE STREQUAL "Debug")
         INSECURE_CHECK
         _CONFIGURATION="Debug"
         # LIST_INTERFACE_VERSIONS
+        # SDK_FONTS
     )
 
     target_compile_options(css-sdk PRIVATE

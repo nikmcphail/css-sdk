@@ -1,6 +1,7 @@
 #include "core.h"
 
 #include <Windows.h>
+#include <d3d9.h>
 #include <winuser.h>
 
 #include "src/library/utils.h"
@@ -13,6 +14,8 @@
 #include "src/sdk/main/trace_filter.h"
 #include "src/sdk/main/cs_player.h"
 #include "src/sdk/interfaces/engine_client.h"
+
+#include "menu/menu.h"
 
 bool core::check_insecure() {
   int     argc;
@@ -57,6 +60,19 @@ bool core::initialize() {
     return false;
   sdk_message(COLOR_WHITE, "Addresses initialized");
 
+  get_window_handle();
+
+  if (!g_render.initialize())
+    return false;
+  sdk_message(COLOR_WHITE, "Render initialized");
+
+  g_render.setup_input();
+  sdk_message(COLOR_WHITE, "Input initalized");
+
+  if (!g_hooks.initialize())
+    return false;
+  sdk_message(COLOR_WHITE, "Hooks initialized");
+
   sdk_message(COLOR_GREEN_BALANCED, "Loaded");
   g_globals.attached = true;
   return true;
@@ -65,9 +81,26 @@ bool core::initialize() {
 bool core::should_unload() { return (GetAsyncKeyState(VK_DELETE) & 1); }
 
 void core::unload() {
+  std::unique_lock _{g_render.unload_mutex};
   g_globals.unloading = true;
+  g_hooks.unload();
+  g_render.unload_input();
+  g_render.unload();
   g_interfaces.game_console->clear();
   sdk_message(COLOR_RED_BALANCED, "Unloaded");
+}
+
+void core::get_window_handle() {
+  D3DDEVICE_CREATION_PARAMETERS creation_parameters;
+  g_interfaces.directx_device->GetCreationParameters(&creation_parameters);
+
+  g_window = creation_parameters.hFocusWindow;
+}
+
+void core::on_present() {
+  g_render.begin();
+  menu::present();
+  g_render.finish();
 }
 
 void core::sdk_message(const color_t& color, const char* format, ...) {

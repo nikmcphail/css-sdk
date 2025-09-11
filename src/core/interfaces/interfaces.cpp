@@ -103,5 +103,12 @@ bool interfaces_t::collect_interfaces() {
     return false;
   }
 
+  this->directx_device =
+      *(utils::find_pattern_in_memory("shaderapidx9.dll", "48 89 1D ?? ?? ?? ?? 48 8B CF")
+            .rel32<IDirect3DDevice9**>(0x3));
+  if (!this->directx_device) {
+    return false;
+  }
+
   return true;
 }
