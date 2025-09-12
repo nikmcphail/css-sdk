@@ -110,5 +110,17 @@ bool interfaces_t::collect_interfaces() {
     return false;
   }
 
+  this->client_state =
+      utils::find_pattern_in_memory("engine.dll", "48 8D 0D ? ? ? ? E8 ? ? ? ? F3 0F 5E 05")
+          .rel32<client_state_t*>(0x3);
+  if (!this->client_state) {
+    return false;
+  }
+
+  this->surface = get_interface<i_surface_t>("vguimatsurface.dll", "VGUI_Surface");
+  if (!this->surface) {
+    return false;
+  }
+
   return true;
 }

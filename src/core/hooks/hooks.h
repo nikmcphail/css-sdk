@@ -8,6 +8,9 @@ public:
   SafetyHookVm  directx_present_hook;
   SafetyHookVm  directx_reset_hook;
 
+  SafetyHookVmt surface_hook;
+  SafetyHookVm  lock_cursor_hook;
+
   bool initialize();
   void unload();
 };

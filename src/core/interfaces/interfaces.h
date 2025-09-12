@@ -10,6 +10,8 @@ class i_input_system_t;
 class i_game_event_manager_2_t;
 class i_view_render_beams_t;
 class IDirect3DDevice9;
+class client_state_t;
+class i_surface_t;
 
 class interfaces_t {
 public:
@@ -23,6 +25,8 @@ public:
   i_game_event_manager_2_t* game_event{nullptr};
   i_view_render_beams_t*    render_beams{nullptr};
   IDirect3DDevice9*         directx_device{nullptr};
+  client_state_t*           client_state{nullptr};
+  i_surface_t*              surface{nullptr};
 
   bool collect_interfaces();
 };

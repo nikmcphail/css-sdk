@@ -1,6 +1,8 @@
 #include "hooks.h"
 
 #include "src/core/core.h"
+#include "src/core/menu/menu.h"
+#include "src/sdk/interfaces/surface.h"
 
 #include <d3d9.h>
 
@@ -29,6 +31,19 @@ public:
   }
 };
 
+class hooked_surface {
+public:
+  HCURSOR hooked_lock_cursor() {
+    if (!core::g_globals.attached || core::g_globals.unloading)
+      return core::g_hooks.lock_cursor_hook.fastcall<HCURSOR>(this);
+
+    if (menu::open)
+      return core::g_interfaces.surface->unlock_cursor();
+
+    return core::g_hooks.lock_cursor_hook.fastcall<HCURSOR>(this);
+  }
+};
+
 bool hooks_t::initialize() {
   this->directx_device_hook  = safetyhook::create_vmt(core::g_interfaces.directx_device);
   this->directx_present_hook = safetyhook::create_vm(this->directx_device_hook, 17,
@@ -36,7 +51,14 @@ bool hooks_t::initialize() {
   this->directx_reset_hook   = safetyhook::create_vm(this->directx_device_hook, 16,
                                                      &hooked_directx_device::hooked_reset);
 
+  this->surface_hook = safetyhook::create_vmt(core::g_interfaces.surface);
+  this->lock_cursor_hook =
+      safetyhook::create_vm(this->surface_hook, 62, &hooked_surface::hooked_lock_cursor);
+
   return true;
 }
 
-void hooks_t::unload() { directx_device_hook = {}; }
+void hooks_t::unload() {
+  directx_device_hook = {};
+  surface_hook        = {};
+}

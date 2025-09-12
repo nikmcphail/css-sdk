@@ -42,9 +42,15 @@ bool core::check_insecure() {
 bool core::initialize() {
   float time = 0.f;
   while (!GetModuleHandleA("ServerBrowser.dll")) {
+    core::valve_con_color_message(
+        color_t{255, 255, 0, 255},
+        "[SDK Load Warning] Cannot find ServerBrowser.dll, attempting to find again...");
     Sleep(500), time += 0.5f;
     if (time >= 60.f || (GetAsyncKeyState(VK_DELETE) & 1))
-      return false;
+      core::valve_con_color_message(
+          color_t{255, 0, 0, 255},
+          "[SDK Load Error] ServerBrowser.dll hasn't loaded, unable to continue.");
+    return false;
   }
 
   if (!g_interfaces.collect_interfaces())
@@ -53,27 +59,28 @@ bool core::initialize() {
   // If you enable LIST_INTERFACE_VERSIONS, comment out the clear below.
   g_interfaces.game_console->clear();
   sdk_message(COLOR_WHITE, "Build mode: %s", _CONFIGURATION);
-  sdk_message(COLOR_ORANGE_LIGHT, "Press delete to unload");
-  sdk_message(COLOR_WHITE, "Interfaces initialized");
+  sdk_message(COLOR_PURPLE_LIGHT, "Press INSERT to open menu.");
+  sdk_message(COLOR_ORANGE_LIGHT, "Press DELETE to unload.");
+  sdk_message(COLOR_WHITE, "Interfaces initialized.");
 
   if (!g_addresses.collect_addresses())
     return false;
-  sdk_message(COLOR_WHITE, "Addresses initialized");
+  sdk_message(COLOR_WHITE, "Addresses initialized.");
 
   get_window_handle();
 
   if (!g_render.initialize())
     return false;
-  sdk_message(COLOR_WHITE, "Render initialized");
+  sdk_message(COLOR_WHITE, "Render initialized.");
 
   g_render.setup_input();
-  sdk_message(COLOR_WHITE, "Input initalized");
+  sdk_message(COLOR_WHITE, "Input initalized.");
 
   if (!g_hooks.initialize())
     return false;
-  sdk_message(COLOR_WHITE, "Hooks initialized");
+  sdk_message(COLOR_WHITE, "Hooks initialized.");
 
-  sdk_message(COLOR_GREEN_BALANCED, "Loaded");
+  sdk_message(COLOR_GREEN_BALANCED, "Loaded.");
   g_globals.attached = true;
   return true;
 }
@@ -87,7 +94,7 @@ void core::unload() {
   g_render.unload_input();
   g_render.unload();
   g_interfaces.game_console->clear();
-  sdk_message(COLOR_RED_BALANCED, "Unloaded");
+  sdk_message(COLOR_RED_BALANCED, "Unloaded.");
 }
 
 void core::get_window_handle() {
