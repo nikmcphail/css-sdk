@@ -6,7 +6,7 @@
 #include "../main/qangle.h"
 #include "../main/matrix_3x4.h"
 
-class net_channel_info_t;
+class i_net_channel_info_t;
 class key_values_t;
 class model_t;
 class material_t;
@@ -116,7 +116,7 @@ public:
   virtual bool  is_occluded(const vector3_t& vec_abs_mins, const vector3_t& vec_abs_maxs)  = 0;
   virtual void* save_alloc_memory(size_t num, size_t size)                                 = 0;
   virtual void  save_free_memory(void* p_save_mem)                                         = 0;
-  virtual net_channel_info_t* get_net_channel_info(void)                                   = 0;
+  virtual i_net_channel_info_t* get_net_channel_info(void)                                 = 0;
   virtual void         debug_draw_phys_collide(const void* p_collide, material_t* p_material,
                                                matrix_3x4_t& transform, const void* color) = 0;
   virtual void         checkpoint(const char* p_name)                                      = 0;
