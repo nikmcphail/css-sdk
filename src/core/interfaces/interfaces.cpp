@@ -122,5 +122,12 @@ bool interfaces_t::collect_interfaces() {
     return false;
   }
 
+  this->global_vars = utils::find_pattern_in_memory(
+                          "engine.dll", "48 8D 05 ? ? ? ? C3 CC CC CC CC CC CC CC CC 48 8B CA")
+                          .rel32<global_vars_base_t*>(0x3);
+  if (!this->global_vars) {
+    return false;
+  }
+
   return true;
 }
