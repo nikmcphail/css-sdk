@@ -41,15 +41,17 @@ bool core::check_insecure() {
 
 bool core::initialize() {
   float time = 0.f;
-  while (!GetModuleHandleA("ServerBrowser.dll")) {
-    core::valve_con_color_message(
-        color_t{255, 255, 0, 255},
-        "[SDK Load Warning] Cannot find ServerBrowser.dll, attempting to find again...");
+  // see if we can find haptics pointer
+  while (!utils::find_pattern_in_memory("client.dll",
+                                        "48 8B 0D ? ? ? ? 48 8B 10 48 8B 19 48 8B C8 FF 92")) {
+    core::valve_con_color_message(COLOR_YELLOW_BALANCED,
+                                  "[SDK Load Warning] Cannot find haptics pointer, attempting "
+                                  "to find again... (Press DELETE to cancel.)");
     Sleep(500), time += 0.5f;
     if (time >= 60.f || (GetAsyncKeyState(VK_DELETE) & 1))
       core::valve_con_color_message(
-          color_t{255, 0, 0, 255},
-          "[SDK Load Error] ServerBrowser.dll hasn't loaded, unable to continue.");
+          COLOR_RED_BALANCED,
+          "[SDK Load Error] Haptics pointer not found, unable to continue.");
     return false;
   }
 
