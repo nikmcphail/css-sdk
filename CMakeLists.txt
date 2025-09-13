@@ -50,6 +50,7 @@ CPMAddPackage("gh:brenocq/implot3d@0.2")
 
 add_library(css-sdk SHARED
     src/main.cpp
+
     src/core/core.cpp
     src/core/interfaces/interfaces.cpp
     src/core/netvars/netvars.cpp
@@ -57,8 +58,11 @@ add_library(css-sdk SHARED
     src/core/hooks/hooks.cpp
     src/core/render/render.cpp
     src/core/menu/menu.cpp
+    src/core/entities/entities.cpp
+
     src/library/utils.cpp
     src/library/math.cpp
+    
     src/sdk/main/base_animating.cpp
 )
 

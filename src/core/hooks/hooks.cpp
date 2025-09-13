@@ -1,8 +1,10 @@
 #include "hooks.h"
 
+#include "safetyhook/easy.hpp"
 #include "src/core/core.h"
 #include "src/core/menu/menu.h"
 #include "src/sdk/interfaces/surface.h"
+#include "src/sdk/misc/client_frame_stage.h"
 
 #include <d3d9.h>
 
@@ -44,6 +46,23 @@ public:
   }
 };
 
+class hooked_base_client {
+public:
+  void hooked_frame_stage_notify(client_frame_stage_e stage) {
+    if (!core::g_globals.attached || core::g_globals.unloading)
+      core::g_hooks.frame_stage_notify_hook.fastcall(this, stage);
+
+    core::pre_frame_stage_notify(stage);
+    core::g_hooks.frame_stage_notify_hook.fastcall(this, stage);
+    core::post_frame_stage_notify(stage);
+  }
+
+  void hooked_level_shutdown() {
+    core::g_hooks.level_shutdown_hook.fastcall(this);
+    core::g_entities.clear();
+  }
+};
+
 bool hooks_t::initialize() {
   this->directx_device_hook  = safetyhook::create_vmt(core::g_interfaces.directx_device);
   this->directx_present_hook = safetyhook::create_vm(this->directx_device_hook, 17,
@@ -55,10 +74,17 @@ bool hooks_t::initialize() {
   this->lock_cursor_hook =
       safetyhook::create_vm(this->surface_hook, 62, &hooked_surface::hooked_lock_cursor);
 
+  this->base_client_hook        = safetyhook::create_vmt(core::g_interfaces.base_client);
+  this->frame_stage_notify_hook = safetyhook::create_vm(
+      this->base_client_hook, 35, &hooked_base_client::hooked_frame_stage_notify);
+  this->level_shutdown_hook = safetyhook::create_vm(this->base_client_hook, 7,
+                                                    &hooked_base_client::hooked_level_shutdown);
+
   return true;
 }
 
 void hooks_t::unload() {
   directx_device_hook = {};
   surface_hook        = {};
+  base_client_hook    = {};
 }

@@ -11,6 +11,10 @@ public:
   SafetyHookVmt surface_hook;
   SafetyHookVm  lock_cursor_hook;
 
+  SafetyHookVmt base_client_hook;
+  SafetyHookVm  frame_stage_notify_hook;
+  SafetyHookVm  level_shutdown_hook;
+
   bool initialize();
   void unload();
 };

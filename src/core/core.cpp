@@ -269,3 +269,30 @@ cs_player_t* core::get_local_player() {
 
   return nullptr;
 }
+
+void core::pre_frame_stage_notify(client_frame_stage_e stage) {
+  switch (stage) {
+    case FRAME_NET_UPDATE_START: {
+      break;
+    }
+
+    default:
+      break;
+  }
+}
+
+void core::post_frame_stage_notify(client_frame_stage_e stage) {
+  switch (stage) {
+    case FRAME_NET_UPDATE_START: {
+      g_entities.clear();
+      break;
+    }
+    case FRAME_NET_UPDATE_END: {
+      g_entities.store();
+      break;
+    }
+
+    default:
+      break;
+  }
+}

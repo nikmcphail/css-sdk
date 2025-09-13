@@ -7,6 +7,8 @@
 #include "addresses/addresses.h"
 #include "render/render.h"
 #include "hooks/hooks.h"
+#include "src/sdk/misc/client_frame_stage.h"
+#include "entities/entities.h"
 
 struct color_t;
 class vector3_t;
@@ -21,6 +23,7 @@ namespace core {
   inline addresses_t  g_addresses;
   inline render_t     g_render;
   inline hooks_t      g_hooks;
+  inline entities_t   g_entities;
 
   inline HWND g_window;
 
@@ -31,6 +34,8 @@ namespace core {
 
   void get_window_handle();
   void on_present();
+  void pre_frame_stage_notify(client_frame_stage_e stage);
+  void post_frame_stage_notify(client_frame_stage_e stage);
 
   // SDK message functions
   void sdk_message(const color_t& color, const char* format, ...);
