@@ -58,13 +58,6 @@ bool core::initialize() {
   if (!g_interfaces.collect_interfaces())
     return false;
 
-  // If you enable LIST_INTERFACE_VERSIONS, comment out the clear below.
-  g_interfaces.game_console->clear();
-  sdk_message(COLOR_WHITE, "Build mode: %s", _CONFIGURATION);
-  sdk_message(COLOR_PURPLE_LIGHT, "Press INSERT to open menu.");
-  sdk_message(COLOR_ORANGE_LIGHT, "Press DELETE to unload.");
-  sdk_message(COLOR_WHITE, "Interfaces initialized.");
-
   if (!g_addresses.collect_addresses())
     return false;
   sdk_message(COLOR_WHITE, "Addresses initialized.");
@@ -157,6 +150,19 @@ void core::sdk_test(bool test_case, const char* success_text, const char* fail_t
     g_interfaces.cvar->console_color_printf(COLOR_RED_BALANCED, "[Test Failed] %s\n",
                                             fail_text);
   }
+}
+
+// i wanted to be able to have custom tags for messages *shrug*
+void core::sdk_custom(const color_t& color, const char* tag, const char* format, ...) {
+  g_interfaces.cvar->console_color_printf(color, "[%s] ", tag);
+
+  char    buffer[1024];
+  va_list args;
+  va_start(args, format);
+  vsnprintf(buffer, sizeof(buffer), format, args);
+  va_end(args);
+  g_interfaces.cvar->console_color_printf(color, buffer);
+  g_interfaces.cvar->console_printf("\n");
 }
 
 void core::valve_con_message(const char* format, ...) {

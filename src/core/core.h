@@ -43,6 +43,7 @@ namespace core {
   void sdk_warning(const char* format, ...);
   void sdk_test(bool test_case = false, const char* success_text = "",
                 const char* fail_text = "");
+  void sdk_custom(const color_t& color, const char* tag, const char* format, ...);
 
   // Valve message functions
   void valve_con_message(const char* format, ...);

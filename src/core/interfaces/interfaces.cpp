@@ -5,9 +5,11 @@
 
 #include "fmt/core.h"
 #include "src/library/utils.h"
-// #include "src/core/core.h"
-// #include "src/sdk/main/color.h"
-// Uncomment the above lines for LIST_INTERFACE_VERSIONS
+#include "src/sdk/interfaces/game_console.h"
+#include "src/core/core.h"
+#include "src/sdk/main/color.h"
+
+static std::vector<std::string> versions = {};
 
 template <typename t>
 t* get_interface(const char* module_name, const char* partial, bool strict = false) {
@@ -25,9 +27,7 @@ t* get_interface(const char* module_name, const char* partial, bool strict = fal
     void* ret = create_interface(partial, nullptr);
     if (ret) {
 #ifdef LIST_INTERFACE_VERSIONS
-      if (core::g_interfaces.cvar) {
-        core::sdk_message(COLOR_BLUE_BALANCED, "%s", partial);
-      }
+      versions.push_back(partial);
 #endif
       return static_cast<t*>(ret);
     }
@@ -40,9 +40,7 @@ t* get_interface(const char* module_name, const char* partial, bool strict = fal
       void* ret = create_interface(name.c_str(), nullptr);
       if (ret) {
 #ifdef LIST_INTERFACE_VERSIONS
-        if (core::g_interfaces.cvar) {
-          core::sdk_message(COLOR_BLUE_BALANCED, "%s", name.c_str());
-        }
+        versions.push_back(name);
 #endif
         return static_cast<t*>(ret);
       }
@@ -67,6 +65,7 @@ bool interfaces_t::collect_interfaces() {
   if (!this->game_console) {
     return false;
   }
+  this->game_console->clear();
 
   this->entity_list = get_interface<i_client_entity_list_t>("client.dll", "VClientEntityList");
   if (!this->entity_list) {
@@ -134,5 +133,20 @@ bool interfaces_t::collect_interfaces() {
     return false;
   }
 
+  if (this->cvar) {
+    core::sdk_message(COLOR_WHITE, "Build mode: %s", _CONFIGURATION);
+    core::sdk_message(COLOR_PURPLE_LIGHT, "Press INSERT to open menu.");
+    core::sdk_message(COLOR_ORANGE_LIGHT, "Press DELETE to unload.");
+
+#ifdef LIST_INTERFACE_VERSIONS
+    core::sdk_custom(COLOR_RED_BALANCED, "#LIST_INTERFACE_VERSIONS", "");
+    for (auto version : versions) {
+      core::sdk_custom(COLOR_RED_LIGHT, "Interface", "%s", version.c_str());
+    }
+    core::sdk_custom(COLOR_RED_BALANCED, "#LIST_INTERFACE_VERSIONS", "");
+#endif
+  }
+
+  core::sdk_message(COLOR_WHITE, "Interfaces initialized.");
   return true;
 }
