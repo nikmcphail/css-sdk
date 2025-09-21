@@ -17,6 +17,8 @@ void menu::present() {
 }
 
 void menu::draw_main_menu() {
-  if (ImGui::Begin("CSS-SDK##sdk_main_menu", nullptr, ImGuiWindowFlags_NoCollapse)) {}
+  if (ImGui::Begin("CSS-SDK##sdk_main_menu", nullptr, ImGuiWindowFlags_NoCollapse)) {
+    //
+  }
   ImGui::End();
 }

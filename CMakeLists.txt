@@ -132,7 +132,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Release")
         JSON_NOEXCEPTION
         INSECURE_CHECK
         _CONFIGURATION="Release"
-        SDK_FONTS
+        # SDK_FONTS # Currently unused
     )
 
     target_compile_options(css-sdk PRIVATE
@@ -157,8 +157,8 @@ elseif (CMAKE_BUILD_TYPE STREQUAL "Debug")
         DEBUG
         INSECURE_CHECK
         _CONFIGURATION="Debug"
-        # LIST_INTERFACE_VERSIONS
-        # SDK_FONTS
+        LIST_INTERFACE_VERSIONS
+        # SDK_FONTS # Currently unused
     )
 
     target_compile_options(css-sdk PRIVATE

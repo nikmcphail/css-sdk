@@ -14,6 +14,7 @@ class client_state_t;
 class i_surface_t;
 class global_vars_base_t;
 class i_prediction_t;
+class i_effects_t;
 
 class interfaces_t {
 public:
@@ -31,6 +32,7 @@ public:
   i_surface_t*              surface{nullptr};
   global_vars_base_t*       global_vars{nullptr};
   i_prediction_t*           prediction{nullptr};
+  i_effects_t*              effects{nullptr};
 
   bool collect_interfaces();
 };

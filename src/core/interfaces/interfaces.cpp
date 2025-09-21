@@ -133,6 +133,11 @@ bool interfaces_t::collect_interfaces() {
     return false;
   }
 
+  this->effects = get_interface<i_effects_t>("client.dll", "IEffects");
+  if (!this->effects) {
+    return false;
+  }
+
   if (this->cvar) {
     core::sdk_message(COLOR_WHITE, "Build mode: %s", _CONFIGURATION);
     core::sdk_message(COLOR_PURPLE_LIGHT, "Press INSERT to open menu.");
