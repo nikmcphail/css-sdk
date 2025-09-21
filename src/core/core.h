@@ -8,7 +8,6 @@
 #include "render/render.h"
 #include "hooks/hooks.h"
 #include "src/sdk/misc/client_frame_stage.h"
-#include "entities/entities.h"
 
 struct color_t;
 class vector3_t;
@@ -23,7 +22,6 @@ namespace core {
   inline addresses_t  g_addresses;
   inline render_t     g_render;
   inline hooks_t      g_hooks;
-  inline entities_t   g_entities;
 
   inline HWND g_window;
 

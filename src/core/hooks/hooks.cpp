@@ -57,10 +57,7 @@ public:
     core::post_frame_stage_notify(stage);
   }
 
-  void hooked_level_shutdown() {
-    core::g_hooks.level_shutdown_hook.fastcall(this);
-    core::g_entities.clear();
-  }
+  void hooked_level_shutdown() { core::g_hooks.level_shutdown_hook.fastcall(this); }
 };
 
 bool hooks_t::initialize() {
