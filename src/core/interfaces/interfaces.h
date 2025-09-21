@@ -13,6 +13,7 @@ class IDirect3DDevice9;
 class client_state_t;
 class i_surface_t;
 class global_vars_base_t;
+class i_prediction_t;
 
 class interfaces_t {
 public:
@@ -29,6 +30,7 @@ public:
   client_state_t*           client_state{nullptr};
   i_surface_t*              surface{nullptr};
   global_vars_base_t*       global_vars{nullptr};
+  i_prediction_t*           prediction{nullptr};
 
   bool collect_interfaces();
 };

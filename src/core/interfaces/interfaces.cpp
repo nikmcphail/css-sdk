@@ -129,5 +129,10 @@ bool interfaces_t::collect_interfaces() {
     return false;
   }
 
+  this->prediction = get_interface<i_prediction_t>("client.dll", "VClientPrediction");
+  if (!this->prediction) {
+    return false;
+  }
+
   return true;
 }
