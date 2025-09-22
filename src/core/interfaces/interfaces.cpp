@@ -138,6 +138,11 @@ bool interfaces_t::collect_interfaces() {
     return false;
   }
 
+  this->debug_overlay = get_interface<iv_debug_overlay_t>("engine.dll", "VDebugOverlay");
+  if (!this->debug_overlay) {
+    return false;
+  }
+
   if (this->cvar) {
     core::sdk_message(COLOR_WHITE, "Build mode: %s", _CONFIGURATION);
     core::sdk_message(COLOR_PURPLE_LIGHT, "Press INSERT to open menu.");

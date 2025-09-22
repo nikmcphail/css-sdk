@@ -15,6 +15,7 @@ class i_surface_t;
 class global_vars_base_t;
 class i_prediction_t;
 class i_effects_t;
+class iv_debug_overlay_t;
 
 class interfaces_t {
 public:
@@ -33,6 +34,7 @@ public:
   global_vars_base_t*       global_vars{nullptr};
   i_prediction_t*           prediction{nullptr};
   i_effects_t*              effects{nullptr};
+  iv_debug_overlay_t*       debug_overlay{nullptr};
 
   bool collect_interfaces();
 };
