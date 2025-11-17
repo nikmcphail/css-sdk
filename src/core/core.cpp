@@ -62,6 +62,10 @@ bool core::initialize() {
     return false;
   sdk_message(COLOR_WHITE, "Addresses initialized.");
 
+  if (!g_patches.initialize())
+    return false;
+  sdk_message(COLOR_WHITE, "Patches initialized.");
+
   get_window_handle();
 
   if (!g_render.initialize())
@@ -85,10 +89,11 @@ bool core::should_unload() { return (GetAsyncKeyState(VK_DELETE) & 1); }
 void core::unload() {
   std::unique_lock _{g_render.unload_mutex};
   g_globals.unloading = true;
+  g_interfaces.game_console->clear();
   g_hooks.unload();
   g_render.unload_input();
   g_render.unload();
-  g_interfaces.game_console->clear();
+  g_patches.unload();
   sdk_message(COLOR_RED_BALANCED, "Unloaded.");
 }
 
@@ -161,7 +166,7 @@ void core::sdk_custom(const color_t& color, const char* tag, const char* format,
   va_start(args, format);
   vsnprintf(buffer, sizeof(buffer), format, args);
   va_end(args);
-  g_interfaces.cvar->console_color_printf(color, buffer);
+  g_interfaces.cvar->console_color_printf(COLOR_WHITE, buffer);
   g_interfaces.cvar->console_printf("\n");
 }
 

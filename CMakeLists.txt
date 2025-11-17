@@ -58,6 +58,7 @@ add_library(css-sdk SHARED
     src/core/hooks/hooks.cpp
     src/core/render/render.cpp
     src/core/menu/menu.cpp
+    src/core/patches/patches.cpp
 
     src/library/utils.cpp
     src/library/math.cpp

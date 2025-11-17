@@ -6,6 +6,8 @@
 #include <string>
 #include "address.h"
 
+#include <Windows.h>
+
 namespace utils {
   template <typename T> T get_virtual_function(void* base, std::uint16_t index) noexcept {
     return (*static_cast<T**>(base))[index];
@@ -23,4 +25,6 @@ namespace utils {
   address_t find_pattern_in_memory(const char* module_name, const char* pattern);
 
   ULONG64 get_export(const char* module, const char* exp);
+
+  std::vector<byte> pattern_to_byte(const char* pattern);
 } // namespace utils

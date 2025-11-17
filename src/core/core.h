@@ -7,6 +7,7 @@
 #include "addresses/addresses.h"
 #include "render/render.h"
 #include "hooks/hooks.h"
+#include "patches/patches.h"
 #include "src/sdk/misc/client_frame_stage.h"
 
 struct color_t;
@@ -22,6 +23,7 @@ namespace core {
   inline addresses_t  g_addresses;
   inline render_t     g_render;
   inline hooks_t      g_hooks;
+  inline patches_t    g_patches;
 
   inline HWND g_window;
 

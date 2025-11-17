@@ -137,3 +137,14 @@ std::string utils::get_module_offset(uintptr_t address) {
 ULONG64 utils::get_export(const char* module, const char* exp) {
   return (ULONG64)GetProcAddress(GetModuleHandleA(module), exp);
 }
+
+std::vector<byte> utils::pattern_to_byte(const char* pattern) {
+  std::vector<byte> _pattern = {};
+
+  const auto start = const_cast<char*>(pattern);
+  const auto end   = const_cast<char*>(pattern) + strlen(pattern);
+  for (char* current = start; current < end; ++current)
+    _pattern.push_back(byte(std::strtoul(current, &current, 16)));
+
+  return _pattern;
+}
